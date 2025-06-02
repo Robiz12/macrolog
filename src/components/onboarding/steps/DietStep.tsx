@@ -29,8 +29,68 @@ export default function DietStep() {
     { value: 'rauwolscine', label: 'Rauwolscin', description: 'Alpha-2 Antagonist' }
   ]
 
+  const dietOptions = [
+    {
+      id: 'balanced',
+      name: 'Balanced Diet',
+      description: 'Ausgewogene Ernährung mit allen Makronährstoffen',
+      icon: '⚖️',
+      macros: { protein: 25, carbs: 45, fat: 30 },
+      dayTypes: {
+        training: true,
+        rest: true,
+        fasting: false,
+        refeed: false
+      }
+    },
+    {
+      id: 'lowCarb',
+      name: 'Low Carb',
+      description: 'Weniger Kohlenhydrate, mehr Protein und Fett',
+      icon: '🥩',
+      macros: { protein: 30, carbs: 20, fat: 50 },
+      dayTypes: {
+        training: true,
+        rest: true,
+        fasting: false,
+        refeed: false
+      }
+    },
+    {
+      id: 'highCarb',
+      name: 'High Carb',
+      description: 'Viele Kohlenhydrate für intensive Trainings',
+      icon: '🍝',
+      macros: { protein: 20, carbs: 55, fat: 25 },
+      dayTypes: {
+        training: true,
+        rest: false,
+        fasting: false,
+        refeed: true
+      }
+    },
+    {
+      id: 'keto',
+      name: 'Ketogenic',
+      description: 'Sehr wenige Kohlenhydrate, hoher Fettanteil',
+      icon: '🥑',
+      macros: { protein: 25, carbs: 5, fat: 70 },
+      dayTypes: {
+        training: true,
+        rest: true,
+        fasting: true,
+        refeed: false
+      }
+    }
+  ]
+
   const toggleDayType = (type: string) => {
-    const currentTypes = diet.dayTypes || {}
+    const currentTypes = diet.dayTypes || {
+      training: false,
+      rest: false,
+      fasting: false,
+      refeed: false
+    }
     updateDiet({
       dayTypes: {
         ...currentTypes,

@@ -25,8 +25,8 @@ export default function TrainingStep() {
     
     updateTraining({
       focusRatio: {
-        [type]: value,
-        [otherType]: otherValue
+        strength: type === 'strength' ? value : otherValue,
+        hypertrophy: type === 'hypertrophy' ? value : otherValue
       }
     })
   }
