@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apple-inspired design system with green accents */
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', sans-serif;
+    background-color: #0f0f0f;
+    color: #ffffff;
+    overflow-x: hidden;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Safe area insets for modern mobile devices */
+  .safe-area {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Hide scrollbars while maintaining functionality */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer components {
+  /* Apple-like glass morphism effect */
+  .glass {
+    background: rgba(28, 28, 30, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Apple-like button styles */
+  .btn-primary {
+    @apply bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-4 px-6 rounded-apple-xl transition-all duration-200 hover:from-green-600 hover:to-green-700 active:scale-98 shadow-apple;
+  }
+
+  .btn-secondary {
+    @apply bg-dark-tertiary text-dark-gray-primary font-medium py-3 px-6 rounded-apple-xl transition-all duration-200 hover:bg-dark-quaternary active:scale-98;
+  }
+
+  .btn-ghost {
+    @apply text-dark-accent rounded-2xl font-medium px-6 py-4 transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Apple-like card styles */
+  .card {
+    @apply bg-dark-secondary/80 backdrop-blur-apple border border-dark-quaternary/30 rounded-apple-xl p-6 shadow-apple transition-all duration-200;
+  }
+
+  .card-interactive {
+    @apply card transition-all duration-200 active:scale-98 hover:bg-dark-tertiary;
+  }
+
+  /* Apple-like input styles */
+  .input {
+    @apply w-full bg-dark-tertiary border border-dark-quaternary/50 rounded-apple-xl px-4 py-3 text-dark-gray-primary placeholder-dark-gray-quaternary transition-all duration-200 focus:border-green-500 focus:ring-1 focus:ring-green-500/20;
+  }
+
+  /* Apple-like navigation */
+  .nav-item {
+    @apply flex flex-col items-center gap-1 px-2 py-1 rounded-lg transition-all duration-200 active:scale-95;
+  }
+
+  .nav-item.active {
+    @apply text-dark-accent;
+  }
+
+  /* Custom scrollbar for webkit browsers */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(75, 85, 99, 0.1);
+    border-radius: 2px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.5);
+    border-radius: 2px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.7);
+  }
+
+  .backdrop-blur-apple {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Custom slider styles for green theme */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .slider::-webkit-slider-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: transparent;
+    border-radius: 4px;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #22c55e;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.15s ease;
+  }
+
+  .slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+  }
+
+  .slider::-webkit-slider-thumb:active {
+    transform: scale(1.05);
+  }
+
+  .slider:disabled::-webkit-slider-thumb {
+    background: #6b7280;
+    cursor: not-allowed;
+  }
+
+  .slider:disabled::-webkit-slider-thumb:hover {
+    transform: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Firefox */
+  .slider::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: transparent;
+    border-radius: 4px;
+    border: none;
+  }
+
+  .slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #22c55e;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.15s ease;
+  }
+
+  .slider::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+  }
+
+  .slider:disabled::-moz-range-thumb {
+    background: #6b7280;
+    cursor: not-allowed;
+  }
+
+  /* Focus styles */
+  .slider:focus {
+    outline: none;
+  }
+
+  .slider:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2), 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .slider:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2), 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Success animation styles */
+  .success-check {
+    @apply text-green-500;
+    animation: checkmark 0.5s ease-in-out;
+  }
+
+  @keyframes checkmark {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .loading-dots {
+    @apply inline-flex space-x-1;
+  }
+
+  .loading-dots div {
+    @apply w-1 h-1 bg-current rounded-full;
+    animation: loading-dots 1.4s ease-in-out infinite both;
+  }
+
+  .loading-dots div:nth-child(1) { animation-delay: -0.32s; }
+  .loading-dots div:nth-child(2) { animation-delay: -0.16s; }
+
+  @keyframes loading-dots {
+    0%, 80%, 100% {
+      transform: scale(0);
+      opacity: 0.5;
+    }
+    40% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Apple-like scaling */
+  .scale-press {
+    transform: scale(0.98);
+  }
+} 
