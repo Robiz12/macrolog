@@ -2420,7 +2420,10 @@ export default function Dashboard() {
 
               {/* Large Calorie Display */}
               <div className="text-center mb-6">
-                <div className="text-4xl font-bold text-white mb-2">{viewingDayMacros?.kcal}</div>
+                <div className={`font-bold text-white mb-2 ${
+                  (viewingDayMacros?.kcal || 0) >= 10000 ? 'text-2xl' : 
+                  (viewingDayMacros?.kcal || 0) >= 1000 ? 'text-3xl' : 'text-4xl'
+                }`}>{Math.round(viewingDayMacros?.kcal || 0)}</div>
                 <div className={`text-lg font-medium ${
                   viewingDayPlan?.type === 'training'
                     ? 'text-green-400'
@@ -2451,7 +2454,10 @@ export default function Dashboard() {
                   <div className="w-8 h-8 bg-red-500/20 rounded-lg flex items-center justify-center mx-auto mb-2">
                     <div className="w-3 h-3 bg-red-400 rounded-full"></div>
                   </div>
-                  <div className="text-2xl font-bold text-red-400">{viewingDayMacros.protein}g</div>
+                  <div className={`font-bold text-red-400 ${
+                    viewingDayMacros.protein >= 1000 ? 'text-lg' : 
+                    viewingDayMacros.protein >= 100 ? 'text-xl' : 'text-2xl'
+                  }`}>{Math.round(viewingDayMacros.protein)}g</div>
                   <div className="text-sm text-dark-gray-tertiary">Protein verbleibend</div>
                   {/* Progress bar */}
                   {viewingDayOriginalMacros && viewingDayOriginalMacros.protein !== viewingDayMacros.protein && (
@@ -2465,7 +2471,7 @@ export default function Dashboard() {
                         ></div>
                       </div>
                       <div className="text-xs text-dark-gray-quaternary mt-1">
-                        {viewingDayOriginalMacros.protein - viewingDayMacros.protein}g getrackt
+                        {Math.round(viewingDayOriginalMacros.protein - viewingDayMacros.protein)}g getrackt
                       </div>
                     </div>
                   )}
@@ -2474,7 +2480,10 @@ export default function Dashboard() {
                   <div className="w-8 h-8 bg-yellow-500/20 rounded-lg flex items-center justify-center mx-auto mb-2">
                     <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
                   </div>
-                  <div className="text-2xl font-bold text-yellow-400">{viewingDayMacros.carbs}g</div>
+                  <div className={`font-bold text-yellow-400 ${
+                    viewingDayMacros.carbs >= 1000 ? 'text-lg' : 
+                    viewingDayMacros.carbs >= 100 ? 'text-xl' : 'text-2xl'
+                  }`}>{Math.round(viewingDayMacros.carbs)}g</div>
                   <div className="text-sm text-dark-gray-tertiary">Carbs verbleibend</div>
                   {/* Progress bar */}
                   {viewingDayOriginalMacros && viewingDayOriginalMacros.carbs !== viewingDayMacros.carbs && (
@@ -2488,7 +2497,7 @@ export default function Dashboard() {
                         ></div>
                       </div>
                       <div className="text-xs text-dark-gray-quaternary mt-1">
-                        {viewingDayOriginalMacros.carbs - viewingDayMacros.carbs}g getrackt
+                        {Math.round(viewingDayOriginalMacros.carbs - viewingDayMacros.carbs)}g getrackt
                       </div>
                     </div>
                   )}
@@ -2497,7 +2506,10 @@ export default function Dashboard() {
                   <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-2">
                     <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
                   </div>
-                  <div className="text-2xl font-bold text-blue-400">{viewingDayMacros.fat}g</div>
+                  <div className={`font-bold text-blue-400 ${
+                    viewingDayMacros.fat >= 1000 ? 'text-lg' : 
+                    viewingDayMacros.fat >= 100 ? 'text-xl' : 'text-2xl'
+                  }`}>{Math.round(viewingDayMacros.fat)}g</div>
                   <div className="text-sm text-dark-gray-tertiary">Fett verbleibend</div>
                   {/* Progress bar */}
                   {viewingDayOriginalMacros && viewingDayOriginalMacros.fat !== viewingDayMacros.fat && (
@@ -2511,7 +2523,7 @@ export default function Dashboard() {
                         ></div>
                       </div>
                       <div className="text-xs text-dark-gray-quaternary mt-1">
-                        {viewingDayOriginalMacros.fat - viewingDayMacros.fat}g getrackt
+                        {Math.round(viewingDayOriginalMacros.fat - viewingDayMacros.fat)}g getrackt
                       </div>
                     </div>
                   )}

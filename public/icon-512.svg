@@ -1,0 +1,19 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark background matching the uploaded image -->
+  <rect width="512" height="512" fill="#2d3748" rx="60"/>
+  
+  <!-- Apple body - main shape -->
+  <path d="M256 120c-70 0-120 50-120 120 0 40 15 75 35 100 15 20 30 35 45 45 10 8 20 12 30 12s20-4 30-12c15-10 30-25 45-45 20-25 35-60 35-100 0-70-50-120-100-120z" fill="#4ade80"/>
+  
+  <!-- Apple indent at top -->
+  <path d="M230 125c0-15 10-25 25-25s25 10 25 25c0 10-5 15-10 20-5-5-10-10-15-10s-10 5-15 10c-5-5-10-10-10-20z" fill="#2d3748"/>
+  
+  <!-- Apple leaf -->
+  <ellipse cx="290" cy="110" rx="25" ry="45" fill="#4ade80" transform="rotate(25 290 110)"/>
+  
+  <!-- Leaf detail -->
+  <path d="M285 95c8-12 20-18 30-15 8 2 12 8 12 15-8-5-18-5-25 0-10 8-15 20-17 30-5-10-8-20 0-30z" fill="#4ade80"/>
+  
+  <!-- Apple stem -->
+  <rect x="252" y="85" width="8" height="25" fill="#4ade80" rx="4"/>
+</svg> 
