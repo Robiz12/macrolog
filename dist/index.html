@@ -20,17 +20,564 @@
     <!-- Additional PWA Meta Tags -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="msapplication-TileColor" content="#4ade80" />
-    <meta name="msapplication-config" content="/browserconfig.xml" />
     
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'dark-primary': '#1a1b1e',
+              'dark-secondary': '#2d3748',
+              'dark-tertiary': '#4a5568',
+              'dark-quaternary': '#718096',
+              'dark-gray-primary': '#f7fafc',
+              'dark-gray-secondary': '#edf2f7',
+              'dark-gray-tertiary': '#e2e8f0',
+              'dark-gray-quaternary': '#cbd5e0'
+            }
+          }
+        }
+      }
+    </script>
     
     <title>CoachAI - Smart Fitness Tracking</title>
-    <script type="module" crossorigin src="/assets/index-ChfNI_Qd.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CbzrK2Kr.css">
-  <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
-  <body class="font-sf bg-dark-primary text-dark-gray-primary overflow-x-hidden">
-    <div id="root"></div>
+    
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .safe-area {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+      .animate-fadeInUp {
+        animation: fadeInUp 0.6s ease-out;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .feature-card {
+        transition: transform 0.2s ease;
+      }
+      .feature-card:hover {
+        transform: scale(1.02);
+      }
+      .btn-primary {
+        background: linear-gradient(to right, #10b981, #059669);
+        transition: all 0.2s ease;
+      }
+      .btn-primary:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+      }
+      .hidden {
+        display: none;
+      }
+      .slide-in {
+        animation: slideIn 0.5s ease-out;
+      }
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-dark-primary text-dark-gray-primary overflow-x-hidden">
+    
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="min-h-screen flex flex-col justify-center items-center px-6 py-12" style="background: linear-gradient(to bottom, #1a1b1e, #2d3748, #1a1b1e);">
+      <div class="max-w-md w-full text-center space-y-8">
+        
+        <!-- App Icon/Logo -->
+        <div class="flex justify-center animate-fadeInUp">
+          <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-3xl flex items-center justify-center shadow-2xl">
+            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="space-y-2 animate-fadeInUp" style="animation-delay: 0.2s;">
+          <h1 class="text-4xl font-bold text-dark-gray-primary">
+            Willkommen! Tracke deine Makros und Ziele!
+          </h1>
+          <p class="text-lg text-dark-gray-tertiary">
+            Für optimale Ergebnisse.
+          </p>
+        </div>
+
+        <!-- Features -->
+        <div class="space-y-4 animate-fadeInUp" style="animation-delay: 0.4s;">
+          <div class="feature-card flex items-start gap-4 p-4 rounded-2xl bg-dark-secondary/50 backdrop-blur-sm border border-dark-quaternary/30">
+            <div class="flex-shrink-0 w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div class="flex-1 text-left">
+              <h3 class="font-semibold text-dark-gray-primary mb-1">
+                Einfache Zielsetzung
+              </h3>
+              <p class="text-sm text-dark-gray-tertiary">
+                Definiere deine Kalorie- und Makro-Ziele für verschiedene Tagestypen
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-card flex items-start gap-4 p-4 rounded-2xl bg-dark-secondary/50 backdrop-blur-sm border border-dark-quaternary/30">
+            <div class="flex-shrink-0 w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <div class="flex-1 text-left">
+              <h3 class="font-semibold text-dark-gray-primary mb-1">
+                Intelligente Planung
+              </h3>
+              <p class="text-sm text-dark-gray-tertiary">
+                Flexible Tagesplanung mit optimaler Makro-Verteilung
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-card flex items-start gap-4 p-4 rounded-2xl bg-dark-secondary/50 backdrop-blur-sm border border-dark-quaternary/30">
+            <div class="flex-shrink-0 w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div class="flex-1 text-left">
+              <h3 class="font-semibold text-dark-gray-primary mb-1">
+                Schneller Start
+              </h3>
+              <p class="text-sm text-dark-gray-tertiary">
+                Nur 2 Steps zum Loslegen!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="pt-4 animate-fadeInUp" style="animation-delay: 0.6s;">
+          <button class="btn-primary w-full text-white rounded-xl px-6 py-3 text-lg font-semibold shadow-lg flex items-center justify-center gap-3" onclick="startApp()">
+            Jetzt starten
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onboarding Step 1: BMR -->
+    <div id="bmrScreen" class="hidden min-h-screen safe-area bg-dark-primary">
+      <!-- Header -->
+      <header class="px-6 py-4 bg-dark-primary/95 backdrop-blur border-b border-dark-quaternary/30">
+        <div class="flex items-center gap-4 mb-6">
+          <button onclick="goToWelcome()" class="w-10 h-10 rounded-xl bg-dark-tertiary flex items-center justify-center">
+            <svg class="w-5 h-5 text-dark-gray-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <div class="flex-1">
+            <h1 class="text-lg font-semibold text-dark-gray-primary">Grundumsatz</h1>
+            <p class="text-sm text-dark-gray-tertiary">Schritt 1 von 2</p>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="w-full bg-dark-tertiary rounded-full h-1.5 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full" style="width: 50%;"></div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <div class="flex-1 px-6 py-4">
+        <div class="max-w-md mx-auto space-y-6">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-2">Dein Grundumsatz</h2>
+            <p class="text-dark-gray-tertiary text-balance">
+              Lass ChatGPT deinen BMR berechnen und stelle den Wert hier ein.
+            </p>
+          </div>
+
+          <div class="space-y-6">
+            <!-- ChatGPT Button -->
+            <button class="w-full bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-3 flex items-center justify-center gap-2 shadow-lg text-sm">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+              </svg>
+              <span class="text-white font-medium">ChatGPT Prompt kopieren</span>
+            </button>
+
+            <div class="bg-dark-secondary/50 rounded-xl p-3 border border-dark-quaternary/30">
+              <p class="text-xs text-dark-gray-tertiary text-center">
+                💡 Kopiere den Prompt, füge ihn in ChatGPT ein und folge den Anweisungen.
+              </p>
+            </div>
+
+            <!-- BMR Input -->
+            <div class="bg-dark-secondary/50 backdrop-blur-sm rounded-xl p-4 border border-dark-quaternary/30">
+              <label class="block text-sm font-medium text-white mb-2">Grundumsatz</label>
+              <div class="relative">
+                <input
+                  type="number"
+                  id="bmrInput"
+                  value="2000"
+                  min="1000"
+                  max="3000"
+                  class="w-full bg-dark-tertiary text-dark-gray-primary rounded-xl px-4 py-3 text-center text-xl font-semibold focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all duration-200"
+                />
+                <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-dark-gray-tertiary text-sm">
+                  kcal
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom navigation -->
+      <div class="safe-area px-6 py-4 bg-dark-primary/95 backdrop-blur border-t border-dark-quaternary/30">
+        <div class="flex gap-3">
+          <button onclick="goToWelcome()" class="flex-1 bg-dark-tertiary text-dark-gray-primary rounded-xl px-6 py-3 font-medium">
+            Zurück
+          </button>
+          <button onclick="goToMacros()" class="flex-2 btn-primary text-white rounded-xl px-6 py-3 font-medium">
+            Weiter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onboarding Step 2: Macro Goals -->
+    <div id="macroScreen" class="hidden min-h-screen safe-area bg-dark-primary">
+      <!-- Header -->
+      <header class="px-6 py-4 bg-dark-primary/95 backdrop-blur border-b border-dark-quaternary/30">
+        <div class="flex items-center gap-4 mb-6">
+          <button onclick="goToBMR()" class="w-10 h-10 rounded-xl bg-dark-tertiary flex items-center justify-center">
+            <svg class="w-5 h-5 text-dark-gray-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <div class="flex-1">
+            <h1 class="text-lg font-semibold text-dark-gray-primary">Makro-Ziele</h1>
+            <p class="text-sm text-dark-gray-tertiary">Schritt 2 von 2</p>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="w-full bg-dark-tertiary rounded-full h-1.5 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full" style="width: 100%;"></div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <div class="flex-1 px-6 py-4 overflow-y-auto">
+        <div class="max-w-md mx-auto space-y-6">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-2">Makro-Ziele</h2>
+            <p class="text-dark-gray-tertiary text-balance">
+              Lass ChatGPT deine optimalen Makros berechnen.
+            </p>
+          </div>
+
+          <div class="space-y-6">
+            <!-- Training Day Macros -->
+            <div class="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-6 h-6 rounded-lg bg-green-500/20 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+                <h3 class="font-medium text-green-400">Trainingstag</h3>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Kalorien</label>
+                  <input type="number" id="trainingKcal" value="2500" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Protein (g)</label>
+                  <input type="number" id="trainingProtein" value="150" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Carbs (g)</label>
+                  <input type="number" id="trainingCarbs" value="250" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Fett (g)</label>
+                  <input type="number" id="trainingFat" value="80" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Rest Day Macros -->
+            <div class="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-6 h-6 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                </div>
+                <h3 class="font-medium text-blue-400">Ruhetag</h3>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Kalorien</label>
+                  <input type="number" id="restKcal" value="2000" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Protein (g)</label>
+                  <input type="number" id="restProtein" value="120" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Carbs (g)</label>
+                  <input type="number" id="restCarbs" value="150" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Fett (g)</label>
+                  <input type="number" id="restFat" value="100" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Fasting Day Macros -->
+            <div class="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-6 h-6 rounded-lg bg-red-500/20 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                </div>
+                <h3 class="font-medium text-red-400">Fastentag</h3>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Kalorien</label>
+                  <input type="number" id="fastingKcal" value="1200" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Protein (g)</label>
+                  <input type="number" id="fastingProtein" value="80" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Carbs (g)</label>
+                  <input type="number" id="fastingCarbs" value="100" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs text-dark-gray-tertiary mb-1">Fett (g)</label>
+                  <input type="number" id="fastingFat" value="60" class="w-full bg-dark-tertiary text-dark-gray-primary rounded-lg px-3 py-2 text-sm" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom navigation -->
+      <div class="safe-area px-6 py-4 bg-dark-primary/95 backdrop-blur border-t border-dark-quaternary/30">
+        <div class="flex gap-3">
+          <button onclick="goToBMR()" class="flex-1 bg-dark-tertiary text-dark-gray-primary rounded-xl px-6 py-3 font-medium">
+            Zurück
+          </button>
+          <button onclick="goToDashboard()" class="flex-2 btn-primary text-white rounded-xl px-6 py-3 font-medium">
+            Profil erstellen
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboardScreen" class="hidden min-h-screen safe-area bg-dark-primary">
+      <!-- Header -->
+      <header class="px-6 py-4 bg-gradient-to-r from-green-500/10 to-green-600/5 backdrop-blur border-b border-dark-quaternary/30">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-2xl font-bold text-white">CoachAI</h1>
+            <p class="text-sm text-dark-gray-tertiary">Dein Fitness Dashboard</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="w-10 h-10 rounded-xl bg-dark-tertiary flex items-center justify-center">
+              <svg class="w-5 h-5 text-dark-gray-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <div class="px-6 py-6 space-y-6">
+        <!-- Success Message -->
+        <div class="text-center p-6 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-2xl border border-green-500/20">
+          <div class="text-4xl mb-3">🎉</div>
+          <h2 class="text-2xl font-bold text-white mb-2">Profil erstellt!</h2>
+          <p class="text-dark-gray-tertiary">
+            Dein personalisiertes Fitness-Profil ist bereit. Du kannst jetzt mit der intelligenten Tagesplanung beginnen.
+          </p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-3 gap-4">
+          <div class="text-center p-4 bg-green-500/10 rounded-xl border border-green-500/20">
+            <div class="text-2xl font-bold text-green-400" id="dashboardBMR">2000</div>
+            <div class="text-xs text-dark-gray-tertiary">BMR kcal</div>
+          </div>
+          <div class="text-center p-4 bg-blue-500/10 rounded-xl border border-blue-500/20">
+            <div class="text-2xl font-bold text-blue-400">3</div>
+            <div class="text-xs text-dark-gray-tertiary">Tagestypen</div>
+          </div>
+          <div class="text-center p-4 bg-purple-500/10 rounded-xl border border-purple-500/20">
+            <div class="text-2xl font-bold text-purple-400">0</div>
+            <div class="text-xs text-dark-gray-tertiary">Geplante Tage</div>
+          </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold text-white">Nächste Schritte</h3>
+          <div class="space-y-3">
+            <button class="w-full p-4 bg-dark-secondary/50 border border-dark-quaternary/30 rounded-xl text-left hover:bg-dark-secondary/70 transition-all">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+                  <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium text-white">Ersten Tag planen</h4>
+                  <p class="text-sm text-dark-gray-tertiary">Wähle deinen Tagestyp und starte</p>
+                </div>
+              </div>
+            </button>
+            
+            <button class="w-full p-4 bg-dark-secondary/50 border border-dark-quaternary/30 rounded-xl text-left hover:bg-dark-secondary/70 transition-all">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                  <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-medium text-white">Einstellungen anpassen</h4>
+                  <p class="text-sm text-dark-gray-tertiary">Makros später ändern oder anpassen</p>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Global state
+      let userMacros = {
+        bmr: 2000,
+        training: { kcal: 2500, protein: 150, carbs: 250, fat: 80 },
+        rest: { kcal: 2000, protein: 120, carbs: 150, fat: 100 },
+        fasting: { kcal: 1200, protein: 80, carbs: 100, fat: 60 }
+      };
+
+      function startApp() {
+        document.getElementById('welcomeScreen').classList.add('hidden');
+        document.getElementById('bmrScreen').classList.remove('hidden');
+        document.getElementById('bmrScreen').classList.add('slide-in');
+      }
+
+      function goToWelcome() {
+        document.getElementById('bmrScreen').classList.add('hidden');
+        document.getElementById('welcomeScreen').classList.remove('hidden');
+      }
+
+      function goToBMR() {
+        document.getElementById('macroScreen').classList.add('hidden');
+        document.getElementById('bmrScreen').classList.remove('hidden');
+      }
+
+      function goToMacros() {
+        const bmr = document.getElementById('bmrInput').value;
+        if (bmr && bmr >= 1000 && bmr <= 3000) {
+          userMacros.bmr = parseInt(bmr);
+          document.getElementById('bmrScreen').classList.add('hidden');
+          document.getElementById('macroScreen').classList.remove('hidden');
+          document.getElementById('macroScreen').classList.add('slide-in');
+        } else {
+          alert('Bitte gib einen gültigen BMR-Wert zwischen 1000 und 3000 kcal ein.');
+        }
+      }
+
+      function goToDashboard() {
+        // Save macro values
+        userMacros.training.kcal = parseInt(document.getElementById('trainingKcal').value) || 2500;
+        userMacros.training.protein = parseInt(document.getElementById('trainingProtein').value) || 150;
+        userMacros.training.carbs = parseInt(document.getElementById('trainingCarbs').value) || 250;
+        userMacros.training.fat = parseInt(document.getElementById('trainingFat').value) || 80;
+
+        userMacros.rest.kcal = parseInt(document.getElementById('restKcal').value) || 2000;
+        userMacros.rest.protein = parseInt(document.getElementById('restProtein').value) || 120;
+        userMacros.rest.carbs = parseInt(document.getElementById('restCarbs').value) || 150;
+        userMacros.rest.fat = parseInt(document.getElementById('restFat').value) || 100;
+
+        userMacros.fasting.kcal = parseInt(document.getElementById('fastingKcal').value) || 1200;
+        userMacros.fasting.protein = parseInt(document.getElementById('fastingProtein').value) || 80;
+        userMacros.fasting.carbs = parseInt(document.getElementById('fastingCarbs').value) || 100;
+        userMacros.fasting.fat = parseInt(document.getElementById('fastingFat').value) || 60;
+
+        // Save to localStorage
+        localStorage.setItem('userMacros', JSON.stringify(userMacros));
+        localStorage.setItem('hasOnboarded', 'true');
+
+        // Update dashboard
+        document.getElementById('dashboardBMR').textContent = userMacros.bmr;
+
+        // Navigate to dashboard
+        document.getElementById('macroScreen').classList.add('hidden');
+        document.getElementById('dashboardScreen').classList.remove('hidden');
+        document.getElementById('dashboardScreen').classList.add('slide-in');
+      }
+
+      // Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html> 

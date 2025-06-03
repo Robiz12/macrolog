@@ -1,1 +1,39 @@
-if(!self.define){let e,i={};const s=(s,n)=>(s=new URL(s+".js",n).href,i[s]||new Promise((i=>{if("document"in self){const e=document.createElement("script");e.src=s,e.onload=i,document.head.appendChild(e)}else e=s,importScripts(s),i()})).then((()=>{let e=i[s];if(!e)throw new Error(`Module ${s} didn’t register its module`);return e})));self.define=(n,o)=>{const r=e||("document"in self?document.currentScript.src:"")||location.href;if(i[r])return;let t={};const c=e=>s(e,r),l={module:{uri:r},exports:t,require:c};i[r]=Promise.all(n.map((e=>l[e]||c(e)))).then((e=>(o(...e),t)))}}define(["./workbox-74f2ef77"],(function(e){"use strict";self.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"apple-touch-icon.svg",revision:"9a4e791ef33145abaf372b37241238c4"},{url:"assets/index-CbzrK2Kr.css",revision:null},{url:"assets/index-ChfNI_Qd.js",revision:null},{url:"icon-192.svg",revision:"9a4e791ef33145abaf372b37241238c4"},{url:"icon-512.svg",revision:"9a4e791ef33145abaf372b37241238c4"},{url:"icon.svg",revision:"9a4e791ef33145abaf372b37241238c4"},{url:"index.html",revision:"b86ffed23eb0c050e361afbb2b139383"},{url:"logo.png",revision:"7215ee9c7d9dc229d2921a40e899ec5f"},{url:"registerSW.js",revision:"1872c500de691dce40960bb85481de07"},{url:"manifest.webmanifest",revision:"78a67fbad023c362d0abc6b33056a979"}],{}),e.cleanupOutdatedCaches(),e.registerRoute(new e.NavigationRoute(e.createHandlerBoundToURL("index.html"))),e.registerRoute(/^https:\/\/fonts\.googleapis\.com\/.*/i,new e.CacheFirst({cacheName:"google-fonts-cache",plugins:[new e.ExpirationPlugin({maxEntries:10,maxAgeSeconds:31536e3})]}),"GET")}));
+const CACHE_NAME = 'coachai-v1';
+const urlsToCache = [
+  '/',
+  '/static/js/bundle.js',
+  '/static/css/main.css',
+  '/manifest.json'
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(urlsToCache))
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request)
+      .then((response) => {
+        // Return cached version or fetch from network
+        return response || fetch(event.request);
+      }
+    )
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+}); 
