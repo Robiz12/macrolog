@@ -32,7 +32,7 @@ export default function WelcomeScreen() {
     {
       icon: Zap,
       title: "Schneller Start",
-      description: "Nur 2 Schritte zum personalisierten Fitness-Profil"
+      description: "Nur 2 Steps zum Loslegen!"
     }
   ]
 
@@ -66,11 +66,10 @@ export default function WelcomeScreen() {
           className="space-y-2"
         >
           <h1 className="text-4xl font-bold text-dark-gray-primary text-balance">
-            Willkommen bei
-            <span className="text-transparent bg-gradient-to-r from-green-500 to-green-400 bg-clip-text"> CoachAI</span>
+            Willkommen! Tracke deine Makros und Ziele!
           </h1>
           <p className="text-lg text-dark-gray-tertiary text-pretty">
-            Dein intelligenter Fitness- und Ernährungs-Coach für optimale Ergebnisse
+            Für optimale Ergebnisse.
           </p>
         </motion.div>
 
@@ -119,15 +118,6 @@ export default function WelcomeScreen() {
             <ArrowRight className="w-5 h-5" strokeWidth={2} />
           </motion.button>
         </motion.div>
-
-        {/* Footer */}
-        <motion.p 
-          variants={fadeInUp}
-          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-          className="text-sm text-dark-gray-quaternary text-center"
-        >
-          Einfache Eingabe • Intelligente Planung • Optimale Ergebnisse
-        </motion.p>
       </motion.div>
     </div>
   )
